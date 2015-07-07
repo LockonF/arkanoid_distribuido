@@ -48,7 +48,6 @@ void Game::init(const char * titulo,int xpos,int ypos,int alto,int ancho,int ban
 	}
 	m_bRunning = true;
 
-	tab.set_limites(ancho,alto);
 	return;
 }
 
@@ -63,6 +62,9 @@ void Game::render()
 	SDL_RenderDrawLines(m_pRenderer, tab.obtenerBarra(1), 5);
 	SDL_RenderDrawLines(m_pRenderer, tab.obtenerBarra(2), 5);
 	SDL_RenderDrawLines(m_pRenderer, tab.obtenerBarra(3), 5);
+
+	SDL_RenderDrawLines(m_pRenderer, tab.obtenerSuperior(), 5);
+
 	SDL_RenderPresent(m_pRenderer);	
 
 }

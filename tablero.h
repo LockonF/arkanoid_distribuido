@@ -15,13 +15,15 @@ class Tablero
 		~Tablero();
 		SDL_Point* obtenerBarra(int);
 		void desplazamientoBarra(int,int);
-		void set_limites(int,int);
 		void inicializar_barras();
+		SDL_Point* obtenerSuperior();
 	private:
 		vector<SDL_Point> barraJ1; // inferior
 		vector<SDL_Point> barraJ2; // derecha
 		vector<SDL_Point> barraJ3; // izquierda
-		int limiteX,limiteY;
+
+		vector<SDL_Point> barraS; // superior
+		int limiteX=800,limiteY=600;
 };
 
 

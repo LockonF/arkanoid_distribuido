@@ -15,6 +15,11 @@ Tablero::~Tablero()
 	
 }
 
+SDL_Point* Tablero::obtenerSuperior()
+{
+	return &barraS[0];	
+}
+
 SDL_Point* Tablero::obtenerBarra(int i)
 {
 	if(i==1)
@@ -45,7 +50,7 @@ void Tablero::desplazamientoBarra(int cantidad,int barra)
 	}
 	if(barra==2)
 	{
-		if((barraJ2[0].y+cantidad!=0) && (barraJ2[1].y+cantidad!=limiteY))
+		if((barraJ2[0].y+cantidad!=10) && (barraJ2[1].y+cantidad!=limiteY))
 		{
 			for(int i=0;i<=barraJ2.size();i++)
 			{
@@ -55,7 +60,7 @@ void Tablero::desplazamientoBarra(int cantidad,int barra)
 	}
 	if(barra==3)
 	{
-		if((barraJ3[0].y+cantidad!=0) && (barraJ3[1].y+cantidad!=limiteY))
+		if((barraJ3[0].y+cantidad!=10) && (barraJ3[1].y+cantidad!=limiteY))
 		{
 			for(int i=0;i<=barraJ3.size();i++)
 			{
@@ -63,12 +68,6 @@ void Tablero::desplazamientoBarra(int cantidad,int barra)
 			}
 		}
 	}
-}
-
-void Tablero::set_limites(int x,int y)
-{
-	limiteX=x;
-	limiteY=y;
 }
 
 void Tablero::inicializar_barras()
@@ -126,5 +125,18 @@ void Tablero::inicializar_barras()
 
 
 	//Superior: barra fija
+	cN.x=5;
+	cN.y=0;
+	barraS.push_back(cN);
+	cN.x=795;
+	cN.y=0;
+	barraS.push_back(cN);
+	cN.x=795;
+	cN.y=10;
+	barraS.push_back(cN);
+	cN.x=5;
+	cN.y=10;
+	barraS.push_back(cN);
 
+	barraS.push_back(barraS.front());
 }
