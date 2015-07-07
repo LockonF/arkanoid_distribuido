@@ -60,8 +60,9 @@ void Game::render()
 	
 	SDL_SetRenderDrawColor(m_pRenderer,0, 255,0, 255);//color de poligono
 	
-	SDL_RenderDrawLines(m_pRenderer, tab.obtenerBarra(), 5);
-
+	SDL_RenderDrawLines(m_pRenderer, tab.obtenerBarra(1), 5);
+	SDL_RenderDrawLines(m_pRenderer, tab.obtenerBarra(2), 5);
+	SDL_RenderDrawLines(m_pRenderer, tab.obtenerBarra(3), 5);
 	SDL_RenderPresent(m_pRenderer);	
 
 }
@@ -71,10 +72,10 @@ void Game::update()
 	keystate = SDL_GetKeyboardState(NULL);
 
 	if (keystate[SDL_SCANCODE_RIGHT] ) {
-		tab.desplazamientoBarra(2);
+		tab.desplazamientoBarra(2,3);
 	}
 	if (keystate[SDL_SCANCODE_LEFT] ) {
-		tab.desplazamientoBarra(-2);
+		tab.desplazamientoBarra(-2,3);
 	}
 
 }

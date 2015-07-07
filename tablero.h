@@ -13,12 +13,14 @@ class Tablero
 	public:
 		Tablero();
 		~Tablero();
-		SDL_Point* obtenerBarra();
-		void desplazamientoBarra(int);
+		SDL_Point* obtenerBarra(int);
+		void desplazamientoBarra(int,int);
 		void set_limites(int,int);
+		void inicializar_barras();
 	private:
-		vector<SDL_Point> coordenadas;
-		SDL_Point p1, p2, p3 ,p4;
+		vector<SDL_Point> barraJ1; // inferior
+		vector<SDL_Point> barraJ2; // derecha
+		vector<SDL_Point> barraJ3; // izquierda
 		int limiteX,limiteY;
 };
 
