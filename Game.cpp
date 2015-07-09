@@ -6,7 +6,6 @@
 #include <SDL2/SDL.h>
 #include "tablero.h"
 #include <cstdint>
-
 Game::Game()
 {
 	m_bRunning = true;
@@ -72,14 +71,12 @@ void Game::render()
 void Game::update()
 {
 	keystate = SDL_GetKeyboardState(NULL);
-
 	if (keystate[SDL_SCANCODE_RIGHT] ) {
-		tab.desplazamientoBarra(2,3);
+		tab.desplazamientoBarra(2);
 	}
 	if (keystate[SDL_SCANCODE_LEFT] ) {
-		tab.desplazamientoBarra(-2,3);
+		tab.desplazamientoBarra(-2);
 	}
-
 }
 
 void Game::handleEvents()

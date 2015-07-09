@@ -5,7 +5,6 @@
 #include <SDL2/SDL.h>
 #include "Game.h"
 
-
 Game* g_game = 0;
 
 const int FPS = 60; //Cuantos frames por segundo queremos, 60 es el que utilizan los televisores
@@ -14,8 +13,6 @@ const int DELAY_TIME = 1000.0f / FPS;  //1000 ms entre los fps da el numero de m
 
 int main(int argc, char* argv[])
 {
-
-	
 
 	Uint32 frameStart, frameTime;
 

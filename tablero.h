@@ -11,18 +11,31 @@ using namespace std;
 class Tablero
 {
 	public:
+
+		struct barra
+		{
+			vector<SDL_Point> coordenadas;
+		};
+
+		struct tablero
+		{
+			barra barraSup;
+			barra barraJ1;
+			barra barraJ2;
+			barra barraJ3;
+			vector<barra> tablero;
+			int num_jugador;
+		};
+
 		Tablero();
 		~Tablero();
 		SDL_Point* obtenerBarra(int);
-		void desplazamientoBarra(int,int);
+		void desplazamientoBarra(int);
 		void inicializar_barras();
 		SDL_Point* obtenerSuperior();
+		void set_num_jugador(int);
 	private:
-		vector<SDL_Point> barraJ1; // inferior
-		vector<SDL_Point> barraJ2; // derecha
-		vector<SDL_Point> barraJ3; // izquierda
-
-		vector<SDL_Point> barraS; // superior
+		struct tablero tab;
 		int limiteX=800,limiteY=600;
 };
 

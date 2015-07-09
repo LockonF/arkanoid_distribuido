@@ -8,6 +8,7 @@ using namespace std;
 Tablero::Tablero()
 {
 	inicializar_barras();
+	set_num_jugador(1);
 }
 
 Tablero::~Tablero() 
@@ -17,54 +18,54 @@ Tablero::~Tablero()
 
 SDL_Point* Tablero::obtenerSuperior()
 {
-	return &barraS[0];	
+	return &tab.barraSup.coordenadas[0];	
 }
 
 SDL_Point* Tablero::obtenerBarra(int i)
 {
 	if(i==1)
 	{
-		return &barraJ1[0];
+		return &tab.barraJ1.coordenadas[0];
 	}
 	else if(i==2)
 	{
-		return &barraJ2[0];
+		return &tab.barraJ2.coordenadas[0];
 	}
 	else if(i==3)
 	{
-		return &barraJ3[0];
+		return &tab.barraJ3.coordenadas[0];
 	}
 }
 
-void Tablero::desplazamientoBarra(int cantidad,int barra)
+void Tablero::desplazamientoBarra(int cantidad)
 {
-	if(barra==1)
+	if(tab.num_jugador==1)
 	{
-		if((barraJ1[0].x+cantidad!=0) && (barraJ1[1].x+cantidad!=limiteX))
+		if((tab.barraJ1.coordenadas[0].x+cantidad!=0) && (tab.barraJ1.coordenadas[1].x+cantidad!=limiteX))
 		{
-			for(int i=0;i<=barraJ1.size();i++)
+			for(int i=0;i<=tab.barraJ1.coordenadas.size();i++)
 			{
-				barraJ1[i].x=barraJ1[i].x+cantidad;
+				tab.barraJ1.coordenadas[i].x=tab.barraJ1.coordenadas[i].x+cantidad;
 			}
 		}
 	}
-	if(barra==2)
+	if(tab.num_jugador==2)
 	{
-		if((barraJ2[0].y+cantidad!=10) && (barraJ2[1].y+cantidad!=limiteY))
+		if((tab.barraJ2.coordenadas[0].y+cantidad!=10) && (tab.barraJ2.coordenadas[1].y+cantidad!=limiteY))
 		{
-			for(int i=0;i<=barraJ2.size();i++)
+			for(int i=0;i<=tab.barraJ2.coordenadas.size();i++)
 			{
-				barraJ2[i].y=barraJ2[i].y+cantidad;
+				tab.barraJ2.coordenadas[i].y=tab.barraJ2.coordenadas[i].y+cantidad;
 			}
 		}
 	}
-	if(barra==3)
+	if(tab.num_jugador==3)
 	{
-		if((barraJ3[0].y+cantidad!=10) && (barraJ3[1].y+cantidad!=limiteY))
+		if((tab.barraJ3.coordenadas[0].y+cantidad!=10) && (tab.barraJ3.coordenadas[1].y+cantidad!=limiteY))
 		{
-			for(int i=0;i<=barraJ3.size();i++)
+			for(int i=0;i<=tab.barraJ3.coordenadas.size();i++)
 			{
-				barraJ3[i].y=barraJ3[i].y+cantidad;
+				tab.barraJ3.coordenadas[i].y=tab.barraJ3.coordenadas[i].y+cantidad;
 			}
 		}
 	}
@@ -76,67 +77,73 @@ void Tablero::inicializar_barras()
 	SDL_Point cN;
 	cN.x=350;
 	cN.y=585;
-	barraJ1.push_back(cN);
+	tab.barraJ1.coordenadas.push_back(cN);
 	cN.x=450;
 	cN.y=585;
-	barraJ1.push_back(cN);
+	tab.barraJ1.coordenadas.push_back(cN);
 	cN.x=450;
 	cN.y=595;
-	barraJ1.push_back(cN);
+	tab.barraJ1.coordenadas.push_back(cN);
 	cN.x=350;
 	cN.y=595;
-	barraJ1.push_back(cN);
+	tab.barraJ1.coordenadas.push_back(cN);
 
-	barraJ1.push_back(barraJ1.front());
+	tab.barraJ1.coordenadas.push_back(tab.barraJ1.coordenadas.front());
 
 	//Derecha
 	cN.x=795;
 	cN.y=250;
-	barraJ2.push_back(cN);
+	tab.barraJ2.coordenadas.push_back(cN);
 	cN.x=795;
 	cN.y=350;
-	barraJ2.push_back(cN);
+	tab.barraJ2.coordenadas.push_back(cN);
 	cN.x=785;
 	cN.y=350;
-	barraJ2.push_back(cN);
+	tab.barraJ2.coordenadas.push_back(cN);
 	cN.x=785;
 	cN.y=250;
-	barraJ2.push_back(cN);
+	tab.barraJ2.coordenadas.push_back(cN);
 	
 
-	barraJ2.push_back(barraJ2.front());
+	tab.barraJ2.coordenadas.push_back(tab.barraJ2.coordenadas.front());
 
 	//izquierda
 	cN.x=5;
 	cN.y=250;
-	barraJ3.push_back(cN);
+	tab.barraJ3.coordenadas.push_back(cN);
 	cN.x=5;
 	cN.y=350;
-	barraJ3.push_back(cN);
+	tab.barraJ3.coordenadas.push_back(cN);
 	cN.x=15;
 	cN.y=350;
-	barraJ3.push_back(cN);
+	tab.barraJ3.coordenadas.push_back(cN);
 	cN.x=15;
 	cN.y=250;
-	barraJ3.push_back(cN);
+	tab.barraJ3.coordenadas.push_back(cN);
 	
 
-	barraJ3.push_back(barraJ3.front());
+	tab.barraJ3.coordenadas.push_back(tab.barraJ3.coordenadas.front());
 
 
 	//Superior: barra fija
 	cN.x=5;
 	cN.y=0;
-	barraS.push_back(cN);
+	tab.barraSup.coordenadas.push_back(cN);
 	cN.x=795;
 	cN.y=0;
-	barraS.push_back(cN);
+	tab.barraSup.coordenadas.push_back(cN);
 	cN.x=795;
 	cN.y=10;
-	barraS.push_back(cN);
+	tab.barraSup.coordenadas.push_back(cN);
 	cN.x=5;
 	cN.y=10;
-	barraS.push_back(cN);
+	tab.barraSup.coordenadas.push_back(cN);
 
-	barraS.push_back(barraS.front());
+	tab.barraSup.coordenadas.push_back(tab.barraSup.coordenadas.front());
+}
+
+
+void Tablero::set_num_jugador(int i)
+{
+	tab.num_jugador=1;
 }
