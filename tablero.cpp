@@ -7,13 +7,19 @@ using namespace std;
 
 Tablero::Tablero()
 {
-	inicializar_barras();
-	set_num_jugador(1);
+	
 }
 
 Tablero::~Tablero() 
 {
 	
+}
+
+void Tablero::inicializar_juego()
+{
+	inicializar_barras_jugadores();
+	inicializar_tablero();
+	set_num_jugador(1);
 }
 
 SDL_Point* Tablero::obtenerSuperior()
@@ -71,79 +77,64 @@ void Tablero::desplazamientoBarra(int cantidad)
 	}
 }
 
-void Tablero::inicializar_barras()
+void Tablero::inicializar_barras_jugadores()
 {
-	//inferior
-	SDL_Point cN;
-	cN.x=350;
-	cN.y=585;
-	tab.barraJ1.coordenadas.push_back(cN);
-	cN.x=450;
-	cN.y=585;
-	tab.barraJ1.coordenadas.push_back(cN);
-	cN.x=450;
-	cN.y=595;
-	tab.barraJ1.coordenadas.push_back(cN);
-	cN.x=350;
-	cN.y=595;
-	tab.barraJ1.coordenadas.push_back(cN);
-
-	tab.barraJ1.coordenadas.push_back(tab.barraJ1.coordenadas.front());
-
-	//Derecha
-	cN.x=795;
-	cN.y=250;
-	tab.barraJ2.coordenadas.push_back(cN);
-	cN.x=795;
-	cN.y=350;
-	tab.barraJ2.coordenadas.push_back(cN);
-	cN.x=785;
-	cN.y=350;
-	tab.barraJ2.coordenadas.push_back(cN);
-	cN.x=785;
-	cN.y=250;
-	tab.barraJ2.coordenadas.push_back(cN);
-	
-
-	tab.barraJ2.coordenadas.push_back(tab.barraJ2.coordenadas.front());
-
-	//izquierda
-	cN.x=5;
-	cN.y=250;
-	tab.barraJ3.coordenadas.push_back(cN);
-	cN.x=5;
-	cN.y=350;
-	tab.barraJ3.coordenadas.push_back(cN);
-	cN.x=15;
-	cN.y=350;
-	tab.barraJ3.coordenadas.push_back(cN);
-	cN.x=15;
-	cN.y=250;
-	tab.barraJ3.coordenadas.push_back(cN);
-	
-
-	tab.barraJ3.coordenadas.push_back(tab.barraJ3.coordenadas.front());
-
-
-	//Superior: barra fija
-	cN.x=5;
-	cN.y=0;
-	tab.barraSup.coordenadas.push_back(cN);
-	cN.x=795;
-	cN.y=0;
-	tab.barraSup.coordenadas.push_back(cN);
-	cN.x=795;
-	cN.y=10;
-	tab.barraSup.coordenadas.push_back(cN);
-	cN.x=5;
-	cN.y=10;
-	tab.barraSup.coordenadas.push_back(cN);
-
-	tab.barraSup.coordenadas.push_back(tab.barraSup.coordenadas.front());
+	inicializar_barra(400,590,100,10,tab.barraJ1.coordenadas);
+	inicializar_barra(790,300,10,100,tab.barraJ2.coordenadas);
+	inicializar_barra(10,300,10,100,tab.barraJ3.coordenadas);
+	inicializar_barra(400,5,790,10,tab.barraSup.coordenadas);
 }
 
+void Tablero::inicializar_barra(int x,int y,int largo,int ancho,vector<SDL_Point> &coordenadas_barra)
+{
+	SDL_Point cN;
+	cN.x=x-(largo/2);
+	cN.y=y-(ancho/2);
+	coordenadas_barra.push_back(cN);
+	cN.x=x+(largo/2);
+	cN.y=y-(ancho/2);
+	coordenadas_barra.push_back(cN);
+	cN.x=x+(largo/2);
+	cN.y=y+(ancho/2);
+	coordenadas_barra.push_back(cN);
+	cN.x=x-(largo/2);
+	cN.y=y+(ancho/2);
+	coordenadas_barra.push_back(cN);
+
+	coordenadas_barra.push_back(coordenadas_barra.front());
+}
+
+void Tablero::inicializar_tablero()
+{
+	int separacion_x=40;
+	int separacion_y=10;
+	int inicio_x=280;
+	int inicio_y=150;
+	
+	for(int y=0;y<25;y++)
+	{
+		for(int x=0;x<7;x++)
+		{
+			barra bar;
+			inicializar_barra(inicio_x+(x*separacion_x),inicio_y+(y*separacion_y),separacion_x,separacion_y,bar.coordenadas);
+			tab.tablero.push_back(bar);
+		}
+	}
+
+}
 
 void Tablero::set_num_jugador(int i)
 {
 	tab.num_jugador=1;
 }
+
+int Tablero::get_size_tablero()
+{
+	return tab.tablero.size();
+}
+
+SDL_Point* Tablero::get_element_tablero(int i)
+{
+	return &tab.tablero[i].coordenadas[0];	
+}
+

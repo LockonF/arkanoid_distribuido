@@ -29,11 +29,16 @@ class Tablero
 
 		Tablero();
 		~Tablero();
+		void inicializar_juego();
 		SDL_Point* obtenerBarra(int);
 		void desplazamientoBarra(int);
-		void inicializar_barras();
+		void inicializar_barras_jugadores();
+		void inicializar_tablero();
 		SDL_Point* obtenerSuperior();
 		void set_num_jugador(int);
+		void inicializar_barra(int,int,int,int,vector<SDL_Point> &);
+		int get_size_tablero();
+		SDL_Point* get_element_tablero(int i);
 	private:
 		struct tablero tab;
 		int limiteX=800,limiteY=600;
