@@ -8,23 +8,17 @@
 
 #include "TCPServer.h"
 
-TCPServer::TCPServer(boost::asio::io_service& io_service, int port)
-: acceptor_(io_service, tcp::endpoint(tcp::v4(), port))
+void TCPServer::do_accept()
 {
-    start_accept();
-}
-
-void TCPServer::start_accept()
-{
-    //Generamos una nueva conexión tcp
-    tcp_connection::pointer new_connection = tcp_connection::create(acceptor_.get_io_service());
-}
-
-void TCPServer::handle_accept(tcp_connection::pointer new_connection, const boost::system::error_code& error)
-{
-    if (!error)
+    acceptor_.async_accept(socket_,
+    [this](boost::system::error_code ec)
     {
-        new_connection->start();
-        start_accept();
-    }
+        if (!ec)
+        {
+        std::make_shared<game_session>(std::move(socket_), room_)->start();
+        }
+        do_accept();
+    });
+
+    
 }

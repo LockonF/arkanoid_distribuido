@@ -162,20 +162,7 @@ public:
     }
     
 private:
-    void do_accept()
-    {
-        acceptor_.async_accept(socket_,
-        [this](boost::system::error_code ec)
-        {
-            if (!ec)
-            {
-                std::make_shared<game_session>(std::move(socket_), room_)->start();
-            }
-                                   
-            do_accept();
-        });
-    }
-    
+    void do_accept();
     tcp::acceptor acceptor_;
     tcp::socket socket_;
     game_room room_;
