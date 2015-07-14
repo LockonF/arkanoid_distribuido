@@ -6,20 +6,15 @@
 #include <SDL2/SDL.h>
 #include "tablero.h"
 #include <cstdint>
+#include "TCPServer.h"
+
+using boost::asio::ip::tcp;
 
 Game::Game()
 {
 	m_bRunning = true;
 	srand (time(NULL));
 	tab.inicializar_juego();
-    try{
-        boost::asio::io_service io_service;
-        TCPServer server(io_service,7000);
-        io_service.run();
-    }catch(std::exception &e)
-    {
-        std::cerr<<e.what()<<std::endl;
-    }
 }
 
 Game::~Game() 

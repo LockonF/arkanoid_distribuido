@@ -7,7 +7,6 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "Serializador.h"
-#include "TCPServer.h"
 class Game
 {
 	public:
