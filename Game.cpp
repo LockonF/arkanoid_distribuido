@@ -6,11 +6,20 @@
 #include <SDL2/SDL.h>
 #include "tablero.h"
 #include <cstdint>
+
 Game::Game()
 {
 	m_bRunning = true;
 	srand (time(NULL));
 	tab.inicializar_juego();
+    try{
+        boost::asio::io_service io_service;
+        TCPServer server(io_service,7000);
+        io_service.run();
+    }catch(std::exception &e)
+    {
+        std::cerr<<e.what()<<std::endl;
+    }
 }
 
 Game::~Game() 
@@ -46,7 +55,10 @@ void Game::init(const char * titulo,int xpos,int ypos,int alto,int ancho,int ban
 		return;
 	}
 	m_bRunning = true;
+    
+   
 
+    
 	return;
 }
 
@@ -78,9 +90,15 @@ void Game::update()
 	keystate = SDL_GetKeyboardState(NULL);
 	if (keystate[SDL_SCANCODE_RIGHT] ) {
 		tab.desplazamientoBarra(2);
+        
+        Poco::JSON::Object::Ptr objeto = Serializador::serializarTablero(tab);
+        
+        
 	}
 	if (keystate[SDL_SCANCODE_LEFT] ) {
 		tab.desplazamientoBarra(-2);
+        Poco::JSON::Object::Ptr objeto = Serializador::serializarTablero(tab);
+     
 	}
 }
 

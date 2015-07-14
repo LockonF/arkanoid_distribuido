@@ -6,8 +6,8 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
-#include "tablero.h"
-
+#include "Serializador.h"
+#include "TCPServer.h"
 class Game
 {
 	public:
@@ -24,10 +24,11 @@ class Game
 		SDL_Window* m_pWindow;
 		SDL_Renderer* m_pRenderer;
 		SDL_Event event;				//Detecta la accion de cierre de la ventana
-		
 		const Uint8 * keystate;
-
 		Tablero tab;
+        //Implementación del servidor
+
+    
 };
 
 

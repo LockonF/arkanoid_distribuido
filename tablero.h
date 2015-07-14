@@ -39,7 +39,8 @@ class Tablero
 		void inicializar_barra(int,int,int,int,vector<SDL_Point> &);
 		int get_size_tablero();
 		SDL_Point* get_element_tablero(int i);
-	private:
+        Tablero::tablero obtenerTablero();
+private:
 		struct tablero tab;
 		int limiteX=800,limiteY=600;
 };

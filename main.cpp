@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include "Game.h"
 
+
 Game* g_game = 0;
 
 const int FPS = 60; //Cuantos frames por segundo queremos, 60 es el que utilizan los televisores

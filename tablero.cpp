@@ -5,6 +5,8 @@
 #include <stdlib.h>
 using namespace std;
 
+
+
 Tablero::Tablero()
 {
 	
@@ -41,6 +43,7 @@ SDL_Point* Tablero::obtenerBarra(int i)
 	{
 		return &tab.barraJ3.coordenadas[0];
 	}
+    return nullptr;
 }
 
 void Tablero::desplazamientoBarra(int cantidad)
@@ -137,4 +140,10 @@ SDL_Point* Tablero::get_element_tablero(int i)
 {
 	return &tab.tablero[i].coordenadas[0];	
 }
+
+Tablero::tablero Tablero::obtenerTablero(){
+    return tab;
+}
+
+
 
