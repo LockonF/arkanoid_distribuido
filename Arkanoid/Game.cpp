@@ -6,9 +6,7 @@
 #include <SDL2/SDL.h>
 #include "tablero.h"
 #include <cstdint>
-#include "TCPServer.h"
 
-using boost::asio::ip::tcp;
 
 Game::Game()
 {
