@@ -2,6 +2,10 @@
 
 Fork del juego con funciones de Red. El punto es tener un juego multijugador en Red con un servidor que controle las funciones del juego y un cliente que haga los updates gráficos y envíe los cambios de cada jugador al servidor, para que lo distribuya.
 
+## El serializador
+
+El ejemplo de uso del serializador está dentro de Game::update(). Es sencillo de usar y solamente require del envío de la estructura para poder convertir a string.
+
 ## Librerías utilizadas
 El proyecto requiere de las siguientes librerías
 
