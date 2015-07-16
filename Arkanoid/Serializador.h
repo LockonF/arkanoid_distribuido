@@ -23,6 +23,6 @@
 
 class Serializador{
 public:
-    static Poco::JSON::Object::Ptr serializarTablero(Tablero tab);
+    static std::string serializarTablero(Tablero tab);
     static Tablero::tablero deserializarTablero(std::string);
 };

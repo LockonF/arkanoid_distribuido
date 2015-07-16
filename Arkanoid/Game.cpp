@@ -84,14 +84,13 @@ void Game::update()
 	if (keystate[SDL_SCANCODE_RIGHT] ) {
 		tab.desplazamientoBarra(2);
         
-        Poco::JSON::Object::Ptr objeto = Serializador::serializarTablero(tab);
-        
+        std::cout<<Serializador::serializarTablero(tab);
         
 	}
 	if (keystate[SDL_SCANCODE_LEFT] ) {
 		tab.desplazamientoBarra(-2);
-        Poco::JSON::Object::Ptr objeto = Serializador::serializarTablero(tab);
-     
+        std::cout<<Serializador::serializarTablero(tab);
+
 	}
 }
 

@@ -8,7 +8,7 @@
 
 #include "Serializador.h"
 
-Poco::JSON::Object::Ptr Serializador::serializarTablero(Tablero tab)
+std::string Serializador::serializarTablero(Tablero tab)
 {
     Poco::JSON::Object::Ptr objetoJSON = new Poco::JSON::Object;
     Poco::JSON::Object interno;
@@ -25,6 +25,11 @@ Poco::JSON::Object::Ptr Serializador::serializarTablero(Tablero tab)
     
     //Cadenas
     std::string stringBarra = "barra";
+    
+    //Convertimos el número de jugador, así podemos convertir cada cosa que no sea un vector
+    objetoJSON->set("num_jugador", estructura.num_jugador);
+    
+    //Convertimos la barras a JSON
     
     for(cuentaBarra=0;cuentaBarra<4;cuentaBarra++)
     {
@@ -64,10 +69,7 @@ Poco::JSON::Object::Ptr Serializador::serializarTablero(Tablero tab)
     
     std::ostringstream os;
     objetoJSON->stringify(os);
-    Serializador::deserializarTablero(os.str());
-    std::cout << os.str() << std::endl;
-    
-    return objetoJSON;
+    return os.str();
 }
 
 
@@ -87,16 +89,25 @@ Tablero::tablero Serializador::deserializarTablero(std::string jsonString)
     Tablero::barra barraJ1;
     Tablero::barra barraJ2;
     Tablero::barra barraJ3;
-    // Get metadata nested fields
+    
+    //Obtenemos los campos no anidados
+    
+    Poco::DynamicStruct jsonStruct = *parsedResult.extract<Poco::JSON::Object::Ptr>();
+    estructura.num_jugador = jsonStruct["num_jugador"].convert<int>();
+
+    
+    // Obtenemos los campos anidados
     for(int cuentaBarra=0;cuentaBarra<4;cuentaBarra++)
     {
         
         string keyStr = "barra"+std::to_string(cuentaBarra);
-
-        
         Poco::JSON::Object::Ptr jsonObject = parsedResult.extract<Poco::JSON::Object::Ptr>();
+        
+        //Buscamos la variable anidada
         Poco::Dynamic::Var metaVar = jsonObject->get(keyStr);
         Poco::JSON::Object::Ptr metaObj = metaVar.extract<Poco::JSON::Object::Ptr>();
+        
+        //El iterador tiene dos valores: first(campo) second(valor)
         for (Poco::JSON::Object::ConstIterator itr = metaObj->begin(), end = metaObj->end(); itr != end; ++itr)
         {
             if(isX)
