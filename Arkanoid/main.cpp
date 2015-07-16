@@ -2,44 +2,36 @@
 // Este archivo contiene la ejecucion principal del programa, hace uso de la clase Game, la cual contiene todos los metodos necesarios para la generacion de la aplicacion, asi como el uso de la funcion SDL_Delay para un optimo desplazamiento de los objetos.
 
 #include <iostream>
-#include <SDL2/SDL.h>
-#include "Game.h"
+#include "udp_client.h"
 
 
-Game* g_game = 0;
-
-const int FPS = 60; //Cuantos frames por segundo queremos, 60 es el que utilizan los televisores
-const int DELAY_TIME = 1000.0f / FPS;  //1000 ms entre los fps da el numero de milisegundos entre cada frame
 
 
 int main(int argc, char* argv[])
 {
 
-	Uint32 frameStart, frameTime;
+    
+    std::string host = "127.0.0.1";
+    std::string port = "7200";
+    
+    boost::asio::io_service io_service;
+    
+    
+    //Nos conectamos al servicio. Los parámetros son del host al cual vamos a bindear
+    udp::resolver resolver(io_service);
+    udp_client c(io_service, host, port);
+    
+    
+    //Separamos el thread, esto para poder escribir con cin, pero en el caso del juego es para que pueda seguir ejecutándose en su propio demonio. Con el método write de TCPClient podemos escribir sin problemas dentro del hilo principal
+    boost::thread t(boost::bind(&boost::asio::io_service::run, &io_service));
+    
+    //Se queda recibiendo del servidor
+    c.run_game();
 
-	g_game = new Game();
+    c.keep_receiving();
+
+    t.join();
+    
+    
 	
-	g_game->init("Proyecto Final: Arkanoid", 100, 100, 600, 800, SDL_WINDOW_SHOWN);
-	
-	while(g_game->running())
-	{
-		
-		frameStart = SDL_GetTicks(); //Numero de ms desde el inicio del programa
-		
-		g_game->handleEvents();
-		g_game->update();
-		g_game->render();
-
-		frameTime = SDL_GetTicks() - frameStart;  //Tiempo que ha tardado en presentarse el frame
-	    if(frameTime< DELAY_TIME)  //Si es menor al tiempo que debería ser
-	    {
-	        SDL_Delay((int)(DELAY_TIME - frameTime)); //Espera un tiempo
-	    }
-
-
-	}
-
-	g_game->clean();
-	
-	return 0;
 }

@@ -40,8 +40,9 @@ class Tablero
 		int get_size_tablero();
 		SDL_Point* get_element_tablero(int i);
         Tablero::tablero obtenerTablero();
+        struct tablero tab;
+
 private:
-		struct tablero tab;
 		int limiteX=800,limiteY=600;
 };
 

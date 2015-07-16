@@ -14,7 +14,7 @@ class Game
 		~Game();
 		void init(const char *, int ,int ,int ,int ,int );
 		void render();
-		void update();
+        Tablero::tablero update(Tablero::tablero tab);
 		void handleEvents();
 		void clean();
 		bool running();

@@ -58,7 +58,7 @@ std::string Serializador::serializarTablero(Tablero tab)
         for(;principio!=fin;principio++)
         {
             interno.set("x"+std::to_string(cuentaCoord),principio->x);
-            interno.set("y"+std::to_string(cuentaCoord),principio->x);
+            interno.set("y"+std::to_string(cuentaCoord),principio->y);
             cuentaCoord++;
             if(cuentaCoord==5)
                 break;
@@ -82,7 +82,7 @@ Tablero::tablero Serializador::deserializarTablero(std::string jsonString)
     Poco::Dynamic::Var parsedResult = jsonParser.result();
     
     bool isX = true;
-    SDL_Point coordenada;
+    SDL_Point coordenada[4];
     std::vector<SDL_Point> vector;
     
     Tablero::barra barraSup;
@@ -107,19 +107,24 @@ Tablero::tablero Serializador::deserializarTablero(std::string jsonString)
         Poco::Dynamic::Var metaVar = jsonObject->get(keyStr);
         Poco::JSON::Object::Ptr metaObj = metaVar.extract<Poco::JSON::Object::Ptr>();
         
+        //Para resetear el número de x
+        int numcoord=0;
         //El iterador tiene dos valores: first(campo) second(valor)
         for (Poco::JSON::Object::ConstIterator itr = metaObj->begin(), end = metaObj->end(); itr != end; ++itr)
         {
-            if(isX)
+            
+            if(numcoord<4)
             {
-                coordenada.x = itr->second.convert<int>();
+                coordenada[numcoord].x = itr->second.convert<int>();
+                numcoord++;
                 
             }
             else{
-                coordenada.y = itr->second.convert<int>();
-                vector.push_back(coordenada);
+                
+                coordenada[numcoord-4].y = itr->second.convert<int>();
+                vector.push_back(coordenada[numcoord-4]);
+                numcoord++;
             }
-            isX=!isX;
             
         }
         
