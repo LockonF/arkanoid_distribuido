@@ -80,6 +80,8 @@ void Game::render()
 
 Tablero::tablero Game::update(Tablero::tablero syncTab)
 {
+
+    
     
     keystate = SDL_GetKeyboardState(NULL);
     if (keystate[SDL_SCANCODE_RIGHT] ) {
@@ -91,9 +93,25 @@ Tablero::tablero Game::update(Tablero::tablero syncTab)
         tab.desplazamientoBarra(-2);
     }
     else{
-        tab.tab.barraJ1 = syncTab.barraJ1;
-        tab.tab.barraJ2 = syncTab.barraJ2;
-        tab.tab.barraJ3 = syncTab.barraJ3;
+        switch (syncTab.num_jugador) {
+            case 1:
+                tab.tab.num_jugador=1;
+                tab.tab.barraJ2 = syncTab.barraJ2;
+                tab.tab.barraJ3 = syncTab.barraJ3;
+                break;
+            case 2:
+                tab.tab.num_jugador=2;
+                tab.tab.barraJ1 = syncTab.barraJ1;
+                tab.tab.barraJ3 = syncTab.barraJ3;
+                break;
+            case 3:
+                tab.tab.num_jugador=3;
+                tab.tab.barraJ1 = syncTab.barraJ1;
+                tab.tab.barraJ2 = syncTab.barraJ2;
+                break;
+            default:
+                break;
+        }
     }
     
     return tab.tab;

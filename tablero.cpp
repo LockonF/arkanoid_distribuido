@@ -21,7 +21,7 @@ void Tablero::inicializar_juego()
 {
 	inicializar_barras_jugadores();
 	inicializar_tablero();
-	set_num_jugador(1);
+	set_num_jugador(0);
 }
 
 SDL_Point* Tablero::obtenerSuperior()

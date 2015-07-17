@@ -15,17 +15,8 @@ udp_client::udp_client(boost::asio::io_service &io_service, std::string host, st
     
     timer2_.async_wait(strand_.wrap(boost::bind(&udp_client::keep_receiving, this)));
     socket.open(udp::v4());
-
-}
-
-void udp_client::run_game(){
     g_game = 0;
     
-    const int FPS = 60; //Cuantos frames por segundo queremos, 60 es el que utilizan los televisores
-    const int DELAY_TIME = 1000.0f / FPS;  //1000 ms entre los fps da el numero de milisegundos entre cada frame
-    bool m_bRunning = true;
-    srand (time(NULL));
-    Uint32 frameStart, frameTime;
     
     g_game = new Game();
     
@@ -33,6 +24,18 @@ void udp_client::run_game(){
     
     tab.inicializar_juego();
     
+
+}
+
+void udp_client::run_game(){
+    
+    const int FPS = 60; //Cuantos frames por segundo queremos, 60 es el que utilizan los televisores
+    const int DELAY_TIME = 1000.0f / FPS;  //1000 ms entre los fps da el numero de milisegundos entre cada frame
+    bool m_bRunning = true;
+    srand (time(NULL));
+    
+    Uint32 frameStart, frameTime;
+
     
     while(g_game->running())
     {
@@ -71,7 +74,7 @@ void udp_client::send(std::string message)
 
 std::string udp_client::receive()
 {
-    boost::array<char, 5000> recv_buf;
+    boost::array<char, 9000> recv_buf;
     recv_buf.assign('\0');
     size_t len = socket.receive_from(boost::asio::buffer(recv_buf), sender_endpoint);
     return std::string(recv_buf.data());
@@ -86,13 +89,16 @@ void udp_client::keep_receiving()
     this->send(msg);
 
     while (g_game->running()) {
-        //std::cout<<"Trying to receive: "<<std::endl;
+
         std::string deserialized(receive());
-        //std::cout<<deserialized<<std::endl;
+        std::cout<<"Recibi "<<std::endl<<deserialized<<std::endl;
+        std::cout<<"Soy el jugador "<<tab.tab.num_jugador<<std::endl;
         Tablero::tablero tabSync= Serializador::deserializarTablero(deserialized);
         if(tabSync.num_jugador!=0)
         {
             tab.tab.num_jugador = tabSync.num_jugador;
+            std::cout<<"Soy el jugador "<<tab.tab.num_jugador<<std::endl;
+
         }
         else{
             switch (tab.tab.num_jugador) {
