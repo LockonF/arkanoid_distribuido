@@ -32,7 +32,7 @@ public:
     void close();
     std::string receive();
     void keep_receiving();
-    void run_game();
+    void run_game(boost::asio::io_service &io_service);
     
     
     
@@ -47,4 +47,7 @@ private:
     boost::asio::strand strand_;
     boost::asio::deadline_timer timer1_;
     boost::asio::deadline_timer timer2_;
+    //Destructor
+    void handle_kill();
+    
 };

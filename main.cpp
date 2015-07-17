@@ -21,12 +21,12 @@ int main(int argc, char* argv[])
     udp::resolver resolver(io_service);
     udp_client c(io_service, host, port);
     
-    
+
     //Separamos el thread, esto para poder escribir con cin, pero en el caso del juego es para que pueda seguir ejecutándose en su propio demonio. Con el método write de TCPClient podemos escribir sin problemas dentro del hilo principal
     boost::thread t(boost::bind(&boost::asio::io_service::run, &io_service));
     
     //Se queda recibiendo del servidor
-    c.run_game();
+    c.run_game(io_service);
 
     c.keep_receiving();
 

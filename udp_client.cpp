@@ -27,7 +27,12 @@ udp_client::udp_client(boost::asio::io_service &io_service, std::string host, st
 
 }
 
-void udp_client::run_game(){
+void::udp_client::handle_kill()
+{
+
+}
+
+void udp_client::run_game(boost::asio::io_service &io_service){
     
     const int FPS = 60; //Cuantos frames por segundo queremos, 60 es el que utilizan los televisores
     const int DELAY_TIME = 1000.0f / FPS;  //1000 ms entre los fps da el numero de milisegundos entre cada frame
@@ -57,7 +62,9 @@ void udp_client::run_game(){
     }
     
     g_game->clean();
-    
+    io_service.stopped();
+    exit(0);
+
 }
 
 
