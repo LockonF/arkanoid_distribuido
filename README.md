@@ -24,7 +24,7 @@ export LD_LIBRARY_PATH=/usr/local/lib
 
 Y finalmente compilamos con
 
-g++ -I/usr/local/include -L/usr/local/lib main.cpp udp_client.cpp Serializador.cpp tablero.cpp Game.cpp  -lboost_system-mt -lboost_thread-mt -lboost_timer-mt -lboost_atomic-mt -lboost_chrono-mt -lSDL2 -lPocoFoundation -lPocoJSON -lpthread -std=c++11 -o arkanoid;
+g++ -I/usr/local/include -L/usr/local/lib main.cpp udp_client.cpp Serializador.cpp tablero.cpp Game.cpp  -lboost_system -lboost_thread -lboost_timer -lboost_atomic -lboost_chrono -lSDL2 -lPocoFoundation -lPocoJSON -lpthread -std=c++11 -o arkanoid;
 
 ##Bugs
 
