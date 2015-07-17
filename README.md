@@ -12,7 +12,7 @@ Para instalar POCO solamente se tiene que correr ./configure, luego make y luego
 
 Esto instala las librerías en /usr/local/lib
 
-Para instalar Boost, primero se corre ./boostrap.sh, luego ./b2 y luego ./b2 install --prefix=/usr/local .
+Para instalar Boost, primero se corre ./boostrap.sh, luego ./b2 y luego sudo ./b2 install --prefix=/usr/local .
 
 Entonces se instalan las librerías en /usr/local/lib y los headers en /usr/local/import
 
